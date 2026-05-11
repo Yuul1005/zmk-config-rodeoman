@@ -177,10 +177,14 @@
 
         DEFAULT {
             bindings = <
-                &kp P    &kp Y    &kp R    &kp G    &kp B    &fslh_bslh    &kp L    &kp U    &kp Z    &kp Q
-                &hmql LCTRL H    &hmql LALT S    &hmql LGUI N    &hml LSHIFT T    &kp K    &com_excl     &hmr RSHIFT O    &hmqr RGUI A    &hmqr LALT I    &hmqr RCTRL E
-                &kp F    &kp W    &kp M    &kp D    &kp J    &kp MINUS    &dot_qmark    &kp V    &kp C    &kp X
-                &qm LCTRL    &qm LALT    &qm LGUI    &kp SPACE    &lt ARROW_NUM LANG2    &lt SYMBOL LANG1    &kp ENTER    &qm RGUI    &qm RALT    &qm RCTRL
+                &kp 1   &kp 2   &kp 3   &kp 4   &kp 5     &kp 6   &kp 7   &kp 8   &kp 9   &kp 0
+                &kp 1   &kp 2   &kp 3   &kp 4   &kp 5     &kp 6   &kp 7   &kp 8   &kp 9   &kp 0               
+                &kp 1   &kp 2   &kp 3   &kp 4   &kp 5     &kp 6   &kp 7   &kp 8   &kp 9   &kp 0
+                &kp 1   &kp 2   &kp 3   &kp 4   &kp 5     &kp 6   &kp 7   &kp 8   &kp 9   &kp 0
+                //&kp P    &kp Y    &kp R    &kp G    &kp B    &fslh_bslh    &kp L    &kp U    &kp Z    &kp Q
+                //&hmql LCTRL H    &hmql LALT S    &hmql LGUI N    &hml LSHIFT T    &kp K    &com_excl     &hmr RSHIFT O    &hmqr RGUI A    &hmqr LALT I    &hmqr RCTRL E
+                //&kp F    &kp W    &kp M    &kp D    &kp J    &kp MINUS    &dot_qmark    &kp V    &kp C    &kp X
+                //&qm LCTRL    &qm LALT    &qm LGUI    &kp SPACE    &lt ARROW_NUM LANG2    &lt SYMBOL LANG1    &kp ENTER    &qm RGUI    &qm RALT    &qm RCTRL
             >;
         };
 
