@@ -4,8 +4,32 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <behaviors/rgbled_widget.dtsi>
 
-#define DEFAULT 0
-#define QWERTY 1
+#define JP_DQUOTE       AT                // "
+#define JP_AMPERSAND    CARET             // &
+#define JP_QUOTE        AMPERSAND         // '
+#define JP_EQUAL        UNDER             // =
+#define JP_CARET        EQUAL             // ^
+#define JP_YEN          0x89              // ¥
+#define JP_PLUS         COLON             // +
+#define JP_TILDE        PLUS              // ~
+#define JP_PIPE         LS(0x89)          // |
+#define JP_AT           LEFT_BRACKET      // @
+#define JP_COLON        SINGLE_QUOTE      // :
+#define JP_ASTERISK     DOUBLE_QUOTES     // *
+#define JP_BACKQUOTE    LEFT_BRACE        // `
+#define JP_UNDERSCORE   LS(0x87)          // _
+#define JP_LBRACKET     RIGHT_BRACKET     // [
+#define JP_RBRACKET     BACKSLASH         // ]
+#define JP_LPAREN       ASTERISK          // (
+#define JP_RPAREN       LEFT_PARENTHESIS  // )
+#define JP_LBRACE       RIGHT_BRACE       // {
+#define JP_RBRACE       PIPE              // }
+#define JP_KANA         LANGUAGE_1        // かな
+#define JP_EISU         LANGUAGE_2        // 英数
+#define JP_HANZEN       GRAVE             // 半角/全角
+
+#define QWERTY 0
+#define DEFAULT 1
 #define ARROW_NUM 2
 #define SYMBOL 3
 #define FUNCTION 4
@@ -35,52 +59,52 @@
     combos {                                    //同時押し設定
         compatible = "zmk,combos";
 
-        esc {
-            bindings = <&kp ESC>;                //20番キーと21番キーを同時押しするとESC
-            key-positions = <20 21>;             //キーボードを左右合体させて、一番左上が0、右上が9、左下が30、右下が39
-            timeout-ms = <80>;                   //80ms以内に
-        };
+        //esc {
+            //bindings = <&kp ESC>;                //20番キーと21番キーを同時押しするとESC
+            //key-positions = <20 21>;             //キーボードを左右合体させて、一番左上が0、右上が9、左下が30、右下が39
+            //timeout-ms = <80>;                   //80ms以内に
+        //};
 
         tab {
             bindings = <&kp TAB>;                //1番キーと3番キーを同時押しするとTAB
-            key-positions = <1 3>;
+            key-positions = <11 12>;
             timeout-ms = <80>;                   //80ms以内に
         };
 
-        plus {
-            bindings = <&kp PLUS>;               //16番キーと17番キーを同時押しすると+
-            key-positions = <16 17>;
-            timeout-ms = <80>;                   //80ms以内に
-            layers = <ARROW_NUM>;                //ARROW_NUMレイヤーで
-        };
+        //plus {
+            //bindings = <&kp PLUS>;               //16番キーと17番キーを同時押しすると+
+            //key-positions = <16 17>;
+            //timeout-ms = <80>;                   //80ms以内に
+            //layers = <ARROW_NUM>;                //ARROW_NUMレイヤーで
+        //};
 
-        minus {
-            bindings = <&kp MINUS>;              //26番キーと27番キーを同時押しすると-
-            key-positions = <26 27>;
-            timeout-ms = <80>;                   //80ms以内に
-            layers = <ARROW_NUM>;                //ARROW_NUMレイヤーで
-        };
+        //minus {
+            //bindings = <&kp MINUS>;              //26番キーと27番キーを同時押しすると-
+            //key-positions = <26 27>;
+            //timeout-ms = <80>;                   //80ms以内に
+            //layers = <ARROW_NUM>;                //ARROW_NUMレイヤーで
+        //};
 
-        astrk {
-            bindings = <&kp ASTRK>;               //17番キーと18番キーを同時押しすると*
-            key-positions = <17 18>;
-            timeout-ms = <80>;                    //80ms以内に
-            layers = <ARROW_NUM>;                 //ARROW_NUMレイヤーで
-        };
+        //astrk {
+            //bindings = <&kp ASTRK>;               //17番キーと18番キーを同時押しすると*
+            //key-positions = <17 18>;
+            //timeout-ms = <80>;                    //80ms以内に
+            //layers = <ARROW_NUM>;                 //ARROW_NUMレイヤーで
+        //};
 
-        slash {
-            bindings = <&kp SLASH>;               //27番キーと28番キーを同時押しすると/
-            key-positions = <27 28>;
-            timeout-ms = <80>;                    //80ms以内に
-            layers = <ARROW_NUM>;                 //ARROW_NUMレイヤーで
-        };
+        //slash {
+            //bindings = <&kp SLASH>;               //27番キーと28番キーを同時押しすると/
+            //key-positions = <27 28>;
+            //timeout-ms = <80>;                    //80ms以内に
+            //layers = <ARROW_NUM>;                 //ARROW_NUMレイヤーで
+        //};
 
-        qwerty_on_off {
-            bindings = <&tog QWERTY>;              //4番キーと5番キーを同時押しするとQWERTYレイヤ―とデフォルトレイヤーを切替  
-            key-positions = <4 5>;
-            timeout-ms = <80>;　                   //80ms以内に
-            layers = <DEFAULT QWERTY>;             //デフォルトレイヤーとQWERTYレイヤーで有効
-        };
+        //qwerty_on_off {
+            //bindings = <&tog QWERTY>;              //4番キーと5番キーを同時押しするとQWERTYレイヤ―とデフォルトレイヤーを切替  
+            //key-positions = <4 5>;
+            //timeout-ms = <80>;　                   //80ms以内に
+            //layers = <DEFAULT QWERTY>;             //デフォルトレイヤーとQWERTYレイヤーで有効
+        //};
 
         system_on_off {
             bindings = <&mo SYSTEM>;               //30番キーと31番キーを同時押ししてる間、SYSTEMレイヤーに切り替え  
@@ -177,6 +201,15 @@
     keymap {
         compatible = "zmk,keymap";
 
+         QWERTY {
+             bindings = < 
+                &mt ESCAPE Q       &kp W          &kp E          &kp R                        &kp T                     &kp Y             &kp U            &kp I          &kp O          &kp P
+                &kp A              &kp S          &kp D          &kp F                        &kp G                     &kp H             &kp J            &kp K          &kp L          &kp INTERNATIONAL_1
+                &mt LEFT_SHIFT Z   &kp X          &kp C          &kp V                        &kp B                     &kp N             &kp M            &kp COMMA      &kp DOT        &mt RSHFT SLASH
+                &kp LCTRL          &kp LGUI       &kp LALT       &lt ARROW_NUM INT_HENKAN     &lt SYMBOL SPACE          &kp BACKSPACE     &kp ENTER        &kp MINUS       &kp PLUS       &kp DEL
+            >;
+        };
+
         DEFAULT {
             bindings = <
 
@@ -186,22 +219,13 @@
                 &qm LCTRL        &qm LALT        &qm LGUI        &kp SPACE        &lt ARROW_NUM LANG2       &lt SYMBOL LANG1    &kp ENTER        &qm RGUI        &qm RALT        &qm RCTRL
             >;
         };
-
-        QWERTY {
-            bindings = <
-                &kp Q           &kp W          &kp E          &kp R            &kp T                        &kp Y               &kp U            &kp I         &kp O           &kp P
-                &hml LCTRL A    &hml LALT S    &hml LGUI D    &hml LSHIFT F    &kp G                        &kp H               &hmr RSHIFT J    &hmr RGUI K    &hmr LALT L    &hmr RCTRL SEMI
-                &kp Z           &kp X          &kp C          &kp V            &kp B                        &kp N               &kp M            &kp COMMA      &kp DOT        &kp SLASH
-                &kp LCTRL       &kp LALT       &kp LGUI       &kp SPACE        &lt ARROW_NUM LANG2          &lt SYMBOL LANG1    &kp ENTER        &kp RGUI       &kp RALT       &kp RCTRL
-            >;
-        };
-
+       
         ARROW_NUM {
             bindings = <
-                &kp LG(UP)            &kp LG(LEFT)    &kp UP       &kp LG(RIGHT)    &kp LS(LG(Z))          &kp EQUAL    &kp N7    &kp N8    &kp N9    &kp COMMA
-                &mt LCTRL LG(DOWN)    &kp LEFT        &kp DOWN     &kp RIGHT        &kp LT                 &kp BSPC     &kp N4    &kp N5    &kp N6    &kp DOT
-                &mt LSHIFT LG(Z)      &kp LG(X)       &kp LG(C)    &kp LG(V)        &kp GT                 &kp DEL      &kp N1    &kp N2    &kp N3    &kp N0
-                &trans                &trans          &trans       &trans           &trans                 &trans       &trans    &trans    &trans    &trans
+                &trans            &kp AMPERSAND  JP_DQUOTE    &kp JP_LPAREN     &kp JP_RPAREN          &kp N7     &kp N8    &kp N9    &kp PLUS           &kp MINUS
+                &mt JP_AT         &trans         &kp PERCENT  &kp JP_LBRACKET   &kp JP_RBRACKET        &kp N4     &kp N5    &kp N6    &kp KP_MULTIPLY    &kp KP_DIVIDE
+                &kp HASH          &kp COLON      &kp SEMI     &kp EXCLAMATION   &kp QUESTION           &kp N1     &kp N2    &kp N3    &kp DOT            &kp JP_EQUAL
+                &trans            &trans         &trans       &trans            &trans                 &trans     &trans    &kp N0    &trans             &trans
             >;
         };
 
