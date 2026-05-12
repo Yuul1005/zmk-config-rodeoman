@@ -132,9 +132,7 @@
             bindings = <&kp SLASH>, <&kp BACKSLASH>;   // kp fslh_bslhとして通常は「.」、シフトを押しながらだと「?」になるbehavior作成した。
             mods = <(MOD_LSFT)>;                       // 何を押しながらかを指定
         };
-        
-　　　　// ここからホームポジションモッドに関する記述　デフォルトレイヤーでもQWERTYレイヤーでも上から2段目の行をCTRL、ALT、GUI、SHIFとして扱うための記述(すべて長押し)
-        hmql: home_row_mod_qwerty_left {
+        hmql: home_row_mod_qwerty_left {　　　　　　　　// ここからホームポジションモッドに関する記述　デフォルトレイヤーでもQWERTYレイヤーでも上から2段目の行をCTRL、ALT、GUI、SHIFとして扱うための記述(すべて長押し)
             compatible = "zmk,behavior-hold-tap";     // タップと長押しで動作を変えるという意味
             #binding-cells = <2>;                     // この動作は2個の引数を受け取るという意味(たとえば「 &hmq1 LCTRL H 」のような感じ)
             flavor = "balanced";
