@@ -12,114 +12,116 @@
 #define MOUSE 5
 #define SYSTEM 6
 
-&mt {
-    flavor = "hold-preferred";
-    tapping-term-ms = <200>;
-    quick-tap-ms = <0>;
+&mt {　　　　　　　　　　　　　　　　　　　　　　  　//モッドタップの設定(単押し、長押しの切り替えとか)
+    flavor = "hold-preferred";　　　　　　　　　　//hold-preferredは長押しか単押しかあいまいな時は長押しにする。tap-preferredもある。
+    tapping-term-ms = <200>;　　　　　　　　　　　//200msを超えると長押し判定になる。
+    quick-tap-ms = <0>;　　　　　　　　　　　　　　//連打判定を無効化
 };
 
-&lt {
-    flavor = "hold-preferred";
+&lt {　　　　　　　　　　　　　　　　　　　　　　　　//レイヤータップの設定(単押し、長押し(レイヤー変更)の切り替えとか)
+    flavor = "hold-preferred";　　　　　　　　　　//hold-preferredは長押しか単押しかあいまいな時は長押しにする。tap-preferredもある。
 };
 
-/ {
+/ {　　　　　　　　　　　　　　　　　　　　　　　　　//ここから本体の記述が始まる。
 
     conditional_layers {
         compatible = "zmk,conditional-layers";
-        tri_layer {
-            if-layers = <ARROW_NUM SYMBOL>;
-            then-layer = <FUNCTION>;
+        tri_layer {                              //triレイヤーの設定
+            if-layers = <ARROW_NUM SYMBOL>;　　　 //ARROW_NUMレイヤーとSYMBOLレイヤーを同時押しすると
+            then-layer = <FUNCTION>;             //FUNCTION レイヤーが有効になる。
         };
     };
 
-    combos {    
+    combos {                                    //同時押し設定
         compatible = "zmk,combos";
 
         esc {
-            bindings = <&kp ESC>;
-            key-positions = <20 21>;
-            timeout-ms = <80>;
+            bindings = <&kp ESC>;                //20番キーと21番キーを同時押しするとESC
+            key-positions = <20 21>;             //キーボードを左右合体させて、一番左上が0、右上が9、左下が30、右下が39
+            timeout-ms = <80>;                   //80ms以内に
         };
 
         tab {
-            bindings = <&kp TAB>;
+            bindings = <&kp TAB>;                //1番キーと3番キーを同時押しするとTAB
             key-positions = <1 3>;
-            timeout-ms = <80>;
+            timeout-ms = <80>;                   //80ms以内に
         };
 
         plus {
-            bindings = <&kp PLUS>;
+            bindings = <&kp PLUS>;               //16番キーと17番キーを同時押しすると+
             key-positions = <16 17>;
-            timeout-ms = <80>;
-            layers = <ARROW_NUM>;
+            timeout-ms = <80>;                   //80ms以内に
+            layers = <ARROW_NUM>;                //ARROW_NUMレイヤーで
         };
 
         minus {
-            bindings = <&kp MINUS>;
+            bindings = <&kp MINUS>;              //26番キーと27番キーを同時押しすると-
             key-positions = <26 27>;
-            timeout-ms = <80>;
-            layers = <ARROW_NUM>;
+            timeout-ms = <80>;                   //80ms以内に
+            layers = <ARROW_NUM>;                //ARROW_NUMレイヤーで
         };
 
         astrk {
-            bindings = <&kp ASTRK>;
+            bindings = <&kp ASTRK>;               //17番キーと18番キーを同時押しすると*
             key-positions = <17 18>;
-            timeout-ms = <80>;
-            layers = <ARROW_NUM>;
+            timeout-ms = <80>;                    //80ms以内に
+            layers = <ARROW_NUM>;                 //ARROW_NUMレイヤーで
         };
 
         slash {
-            bindings = <&kp SLASH>;
+            bindings = <&kp SLASH>;               //27番キーと28番キーを同時押しすると/
             key-positions = <27 28>;
-            timeout-ms = <80>;
-            layers = <ARROW_NUM>;
+            timeout-ms = <80>;                    //80ms以内に
+            layers = <ARROW_NUM>;                 //ARROW_NUMレイヤーで
         };
 
         qwerty_on_off {
-            bindings = <&tog QWERTY>;
+            bindings = <&tog QWERTY>;              //4番キーと5番キーを同時押しするとQWERTYレイヤ―とデフォルトレイヤーを切替  
             key-positions = <4 5>;
-            timeout-ms = <80>;
-            layers = <DEFAULT QWERTY>;
+            timeout-ms = <80>;　                   //80ms以内に
+            layers = <DEFAULT QWERTY>;             //デフォルトレイヤーとQWERTYレイヤーで有効
         };
 
         system_on_off {
-            bindings = <&mo SYSTEM>;
+            bindings = <&mo SYSTEM>;               //30番キーと31番キーを同時押ししてる間、SYSTEMレイヤーに切り替え  
             key-positions = <30 31>;
-            timeout-ms = <80>;
+            timeout-ms = <80>;                     //80ms以内に
         };
     };
 
-    behaviors {
-        com_excl: comma_exclamation {
-            compatible = "zmk,behavior-mod-morph";
+    behaviors {                                         //ここで新しいbehaviorを定義している
+        com_excl: comma_exclamation {                   //新しいbehavior:com_exc1
+            compatible = "zmk,behavior-mod-morph";      //mod-morphを使うという意味(mod-morphは修飾キーが押されているのみ別キーに変化する機能)
             #binding-cells = <0>;
-            bindings = <&kp COMMA>, <&kp EXCL>;
-            mods = <(MOD_LSFT)>;
+            bindings = <&kp COMMA>, <&kp EXCL>;         //kp com_exc1として通常は「,」、シフトを押しながらだと「！」になるbehavior作成した。
+            mods = <(MOD_LSFT)>;                        //何を押しながらかを指定
         };
-        dot_qmark: dot_question {
-            compatible = "zmk,behavior-mod-morph";
+        dot_qmark: dot_question {                       //新しいbehavior:dot_qmark
+            compatible = "zmk,behavior-mod-morph";      //mod-morphを使うという意味
             #binding-cells = <0>;
-            bindings = <&kp DOT>, <&kp QMARK>;
-            mods = <(MOD_LSFT)>;
+            bindings = <&kp DOT>, <&kp QMARK>;         //kp dot_qmarkとして通常は「.」、シフトを押しながらだと「?」になるbehavior作成した。
+            mods = <(MOD_LSFT)>;                       //何を押しながらかを指定
         };
-        fslh_bslh: slash_backslash {
-            compatible = "zmk,behavior-mod-morph";
+        fslh_bslh: slash_backslash {                   //新しいbehavior:fslh_bslh
+            compatible = "zmk,behavior-mod-morph";     //mod-morphを使うという意味
             #binding-cells = <0>;
-            bindings = <&kp SLASH>, <&kp BACKSLASH>;
-            mods = <(MOD_LSFT)>;
+            bindings = <&kp SLASH>, <&kp BACKSLASH>;   //kp fslh_bslhとして通常は「.」、シフトを押しながらだと「?」になるbehavior作成した。
+            mods = <(MOD_LSFT)>;                       //何を押しながらかを指定
         };
+        
+　　　　//ここからホームポジションモッドに関する記述　デフォルトレイヤーでもQWERTYレイヤーでも上から2段目の行をCTRL、ALT、GUI、SHIFとして扱うための記述(すべて長押し)
         hmql: home_row_mod_qwerty_left {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
+            compatible = "zmk,behavior-hold-tap";     //タップと長押しで動作を変えるという意味
+            #binding-cells = <2>;                     //この動作は2個の引数を受け取るという意味(たとえば「 &hmq1 LCTRL H 」のような感じ)
             flavor = "balanced";
-            require-prior-idle-ms = <150>;
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            bindings = <&qm>, <&kp>;
+            require-prior-idle-ms = <150>;            //直前に150ms休止があればタップ優先
+            tapping-term-ms = <280>;                  //280ms以内ならタップとして扱う
+            quick-tap-ms = <175>;                     //素早い連打をタップとして扱う
+            bindings = <&qm>, <&kp>;                  //
             hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 35 36 37 38 39>;
             hold-trigger-on-release;
         };
-        hmqr: home_row_mod_qwerty_right {
+        hmqr: home_row_mod_qwerty_right {            //hmqlの右手版
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
@@ -130,7 +132,7 @@
             hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 30 31 32 33 34>;
             hold-trigger-on-release;
         };
-        hml: home_row_mod_left {
+        hml: home_row_mod_left {                    //hmqlの簡易版　こちらはQWERTYレイヤーで使う
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
@@ -141,7 +143,7 @@
             hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 35 36 37 38 39>;
             hold-trigger-on-release;
         };
-        hmr: home_row_mod_right {
+        hmr: home_row_mod_right {                   //hmqrの簡易版 こちらはQWERTYレイヤーで使う
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
@@ -178,64 +180,64 @@
         DEFAULT {
             bindings = <
 
-                &kp P            &kp Y           &kp R           &kp G            &kp B                  &fslh_bslh          &kp L            &kp U           &kp Z           &kp Q
-                &hmql LCTRL H    &hmql LALT S    &hmql LGUI N    &hml LSHIFT T    &kp K                  &com_excl           &hmr RSHIFT O    &hmqr RGUI A    &hmqr LALT I    &hmqr RCTRL E
-                &kp F            &kp W           &kp M           &kp D            &kp J                  &kp MINUS           &dot_qmark       &kp V           &kp C           &kp X
-                &qm LCTRL        &qm LALT        &qm LGUI        &kp SPACE        &lt ARROW_NUM LANG2    &lt SYMBOL LANG1    &kp ENTER        &qm RGUI        &qm RALT        &qm RCTRL
+                &kp P            &kp Y           &kp R           &kp G            &kp B                     &fslh_bslh          &kp L            &kp U           &kp Z           &kp Q
+                &hmql LCTRL H    &hmql LALT S    &hmql LGUI N    &hml LSHIFT T    &kp K                     &com_excl           &hmr RSHIFT O    &hmqr RGUI A    &hmqr LALT I    &hmqr RCTRL E
+                &kp F            &kp W           &kp M           &kp D            &kp J                     &kp MINUS           &dot_qmark       &kp V           &kp C           &kp X
+                &qm LCTRL        &qm LALT        &qm LGUI        &kp SPACE        &lt ARROW_NUM LANG2       &lt SYMBOL LANG1    &kp ENTER        &qm RGUI        &qm RALT        &qm RCTRL
             >;
         };
 
         QWERTY {
             bindings = <
-                &kp Q           &kp W          &kp E          &kp R            &kp T                  &kp Y               &kp U            &kp I         &kp O           &kp P
-                &hml LCTRL A    &hml LALT S    &hml LGUI D    &hml LSHIFT F    &kp G                  &kp H               &hmr RSHIFT J    &hmr RGUI K    &hmr LALT L    &hmr RCTRL SEMI
-                &kp Z           &kp X          &kp C          &kp V            &kp B                  &kp N               &kp M            &kp COMMA      &kp DOT        &kp SLASH
-                &kp LCTRL       &kp LALT       &kp LGUI       &kp SPACE        &lt ARROW_NUM LANG2    &lt SYMBOL LANG1    &kp ENTER        &kp RGUI       &kp RALT       &kp RCTRL
+                &kp Q           &kp W          &kp E          &kp R            &kp T                        &kp Y               &kp U            &kp I         &kp O           &kp P
+                &hml LCTRL A    &hml LALT S    &hml LGUI D    &hml LSHIFT F    &kp G                        &kp H               &hmr RSHIFT J    &hmr RGUI K    &hmr LALT L    &hmr RCTRL SEMI
+                &kp Z           &kp X          &kp C          &kp V            &kp B                        &kp N               &kp M            &kp COMMA      &kp DOT        &kp SLASH
+                &kp LCTRL       &kp LALT       &kp LGUI       &kp SPACE        &lt ARROW_NUM LANG2          &lt SYMBOL LANG1    &kp ENTER        &kp RGUI       &kp RALT       &kp RCTRL
             >;
         };
 
         ARROW_NUM {
             bindings = <
-                &kp LG(UP)            &kp LG(LEFT)    &kp UP       &kp LG(RIGHT)    &kp LS(LG(Z))    &kp EQUAL    &kp N7    &kp N8    &kp N9    &kp COMMA
-                &mt LCTRL LG(DOWN)    &kp LEFT        &kp DOWN     &kp RIGHT        &kp LT           &kp BSPC     &kp N4    &kp N5    &kp N6    &kp DOT
-                &mt LSHIFT LG(Z)      &kp LG(X)       &kp LG(C)    &kp LG(V)        &kp GT           &kp DEL      &kp N1    &kp N2    &kp N3    &kp N0
-                &trans                &trans          &trans       &trans           &trans           &trans       &trans    &trans    &trans    &trans
+                &kp LG(UP)            &kp LG(LEFT)    &kp UP       &kp LG(RIGHT)    &kp LS(LG(Z))          &kp EQUAL    &kp N7    &kp N8    &kp N9    &kp COMMA
+                &mt LCTRL LG(DOWN)    &kp LEFT        &kp DOWN     &kp RIGHT        &kp LT                 &kp BSPC     &kp N4    &kp N5    &kp N6    &kp DOT
+                &mt LSHIFT LG(Z)      &kp LG(X)       &kp LG(C)    &kp LG(V)        &kp GT                 &kp DEL      &kp N1    &kp N2    &kp N3    &kp N0
+                &trans                &trans          &trans       &trans           &trans                 &trans       &trans    &trans    &trans    &trans
             >;
         };
 
         SYMBOL {
             bindings = <
-                &trans       &kp AT       &kp HASH      &kp DLLR    &trans    &trans      &kp PRCNT    &kp CARET     &kp LPAR    &kp RPAR
-                &kp TILDE    &kp GRAVE    &kp DQT       &kp SQT     &trans    &kp BSPC    &kp AMPS     &kp PIPE      &kp LBKT    &kp RBKT
-                &kp Q        &kp W        &kp COLON     &kp SEMI    &trans    &kp DEL     &ind_bat     &ind_con      &kp LBRC    &kp RBRC
-                &trans       &trans       &trans        &trans      &trans    &trans      &trans       &trans        &trans      &trans
+                &trans       &kp AT       &kp HASH      &kp DLLR    &trans         &trans      &kp PRCNT    &kp CARET     &kp LPAR    &kp RPAR
+                &kp TILDE    &kp GRAVE    &kp DQT       &kp SQT     &trans         &kp BSPC    &kp AMPS     &kp PIPE      &kp LBKT    &kp RBKT
+                &kp Q        &kp W        &kp COLON     &kp SEMI    &trans         &kp DEL     &ind_bat     &ind_con      &kp LBRC    &kp RBRC
+                &trans       &trans       &trans        &trans      &trans         &trans      &trans       &trans        &trans      &trans
             >;
         };
 
         FUNCTION {
             bindings = <
-                &kp LS(LC(LEFT))     &kp LS(LA(LEFT))    &kp LC(LA(UP))      &kp LS(LA(RIGHT))    &kp LS(LC(RIGHT))    &kp C_MUTE    &kp F7    &kp F8    &kp F9    &kp F12
-                &kp LS(LA(ENTER))    &kp LC(LA(LEFT))    &kp LC(LA(DOWN))    &kp LC(LA(RIGHT))    &kp LC(LA(ENTER))    &kp BSPC      &kp F4    &kp F5    &kp F6    &kp F11
-                &kp C_VOL_DN         &kp C_PREV          &kp C_PP            &kp C_NEXT           &kp C_VOL_UP         &kp DEL       &kp F1    &kp F2    &kp F3    &kp F10
-                &trans               &trans              &trans              &trans               &trans               &trans        &trans    &trans    &trans    &trans
+                &kp LS(LC(LEFT))     &kp LS(LA(LEFT))    &kp LC(LA(UP))      &kp LS(LA(RIGHT))    &kp LS(LC(RIGHT))         &kp C_MUTE    &kp F7    &kp F8    &kp F9    &kp F12
+                &kp LS(LA(ENTER))    &kp LC(LA(LEFT))    &kp LC(LA(DOWN))    &kp LC(LA(RIGHT))    &kp LC(LA(ENTER))         &kp BSPC      &kp F4    &kp F5    &kp F6    &kp F11
+                &kp C_VOL_DN         &kp C_PREV          &kp C_PP            &kp C_NEXT           &kp C_VOL_UP              &kp DEL       &kp F1    &kp F2    &kp F3    &kp F10
+                &trans               &trans              &trans              &trans               &trans                    &trans        &trans    &trans    &trans    &trans
             >;
         };
 
         MOUSE {
             bindings = <
-                &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-                &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-                &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-                &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+                &trans    &trans    &trans    &trans    &trans         &trans    &trans    &trans    &trans    &trans
+                &trans    &trans    &trans    &trans    &trans         &trans    &trans    &trans    &trans    &trans
+                &trans    &trans    &trans    &trans    &trans         &trans    &trans    &trans    &trans    &trans
+                &trans    &trans    &trans    &trans    &trans         &trans    &trans    &trans    &trans    &trans
             >;
         };
 
         SYSTEM {
             bindings = <
-                &trans    &trans    &trans    &trans    &trans    &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_SEL 4
-                &trans    &trans    &trans    &trans    &trans    &trans          &trans          &trans          &trans          &trans
-                &trans    &trans    &trans    &trans    &trans    &trans          &trans          &trans          &trans          &trans
-                &trans    &trans    &trans    &trans    &trans    &trans          &trans          &trans          &bt BT_CLR      &bt BT_CLR_ALL
+                &trans    &trans    &trans    &trans    &trans         &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_SEL 4
+                &trans    &trans    &trans    &trans    &trans         &trans          &trans          &trans          &trans          &trans
+                &trans    &trans    &trans    &trans    &trans         &trans          &trans          &trans          &trans          &trans
+                &trans    &trans    &trans    &trans    &trans         &trans          &trans          &trans          &bt BT_CLR      &bt BT_CLR_ALL
             >;  
         };
     };
