@@ -38,7 +38,7 @@
 
 &mt {                                            // モッドタップの設定(単押し、長押しの切り替えとか)
     flavor = "tap-preferred";                   // hold-preferredは長押しか単押しかあいまいな時は長押しにする。tap-preferredもある。
-    //tapping-term-ms = <200>;                     // 200msを超えると長押し判定になる。
+    tapping-term-ms = <500>;                     // 200msを超えると長押し判定になる。
     quick-tap-ms = <0>;                          // 連打判定を無効化
 };
 
